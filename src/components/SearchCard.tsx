@@ -30,7 +30,7 @@ function SearchCard({ onQuestionsGenerated, setIsLoading }: SearchCardProps) {
     const [dificuldade, setDificuldade] = useState('MEDIO');
     const [quantidade, setQuantidade] = useState(5);
     const [isLocalLoading, setIsLocalLoading] = useState(false);
-    
+
     // Estados para as questões
     const [questionsData, setQuestionsData] = useState<QuestionsData | null>(null);
     const [selectedAnswers, setSelectedAnswers] = useState<{ [key: number]: string }>({});
@@ -43,7 +43,7 @@ function SearchCard({ onQuestionsGenerated, setIsLoading }: SearchCardProps) {
 
     const processQuestionsData = (data: any): QuestionsData | null => {
         let processedData: QuestionsData | null = null;
-        
+
         // Tentar diferentes estruturas de dados
         if (data && data.perguntas && Array.isArray(data.perguntas)) {
             processedData = data;
@@ -56,7 +56,7 @@ function SearchCard({ onQuestionsGenerated, setIsLoading }: SearchCardProps) {
         } else if (data && data.result && Array.isArray(data.result)) {
             processedData = { perguntas: data.result };
         }
-        
+
         return processedData;
     };
 
@@ -66,10 +66,10 @@ function SearchCard({ onQuestionsGenerated, setIsLoading }: SearchCardProps) {
 
         setIsLocalLoading(true);
         if (setIsLoading) setIsLoading(true);
-        
+
         try {
             const apiInstance = axios.create({
-                baseURL: baseURL+'/ai/generation/request', 
+                baseURL: baseURL + '/ai/generation/request',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
@@ -83,11 +83,10 @@ function SearchCard({ onQuestionsGenerated, setIsLoading }: SearchCardProps) {
             };
 
             const response = await apiInstance.post('', request);
-            console.log('Resposta da API:', response);
-            
+
             // Processar dados das questões
             const processedData = processQuestionsData(response.data);
-            
+
             if (processedData && processedData.perguntas && processedData.perguntas.length > 0) {
                 setQuestionsData(processedData);
                 // Reset quiz states
@@ -95,12 +94,12 @@ function SearchCard({ onQuestionsGenerated, setIsLoading }: SearchCardProps) {
                 setShowResults(false);
                 setCurrentQuestionIndex(0);
             }
-            
+
             // Chama a função do componente pai se existir
             if (onQuestionsGenerated) {
                 onQuestionsGenerated(response.data);
             }
-            
+
         } catch (error) {
             console.error('Erro ao gerar perguntas:', error);
         } finally {
@@ -269,8 +268,13 @@ function SearchCard({ onQuestionsGenerated, setIsLoading }: SearchCardProps) {
                                     >
                                         {isLocalLoading ? (
                                             <>
-                                                <div className="loading-spinner" />
-                                                Gerando Questões...
+                                                <div className="ai-orbit">
+                                                    <div className="ai-particle"></div>
+                                                    <div className="ai-particle"></div>
+                                                    <div className="ai-particle"></div>
+                                                    <div className="ai-particle"></div>
+                                                </div>
+                                                
                                             </>
                                         ) : (
                                             <>
@@ -284,7 +288,7 @@ function SearchCard({ onQuestionsGenerated, setIsLoading }: SearchCardProps) {
                                 {/* Features */}
                                 <div className="features-grid">
                                     <div className={`feature-card ${isDark ? 'feature-dark' : 'feature-light'}`}>
-                                        <div className={`feature-emoji ${isDark ? 'feature-dark' : 'feature-light'}`}><AiFillRocket/></div>
+                                        <div className={`feature-emoji ${isDark ? 'feature-dark' : 'feature-light'}`}><AiFillRocket /></div>
                                         <h3 className={`feature-title ${isDark ? 'text-light' : 'text-dark'}`}>
                                             Rápido
                                         </h3>
@@ -294,7 +298,7 @@ function SearchCard({ onQuestionsGenerated, setIsLoading }: SearchCardProps) {
                                     </div>
 
                                     <div className={`feature-card ${isDark ? 'feature-dark' : 'feature-light'}`}>
-                                        <div className={`feature-emoji ${isDark ? 'feature-dark' : 'feature-light'}`}><FiTarget/></div>
+                                        <div className={`feature-emoji ${isDark ? 'feature-dark' : 'feature-light'}`}><FiTarget /></div>
                                         <h3 className={`feature-title ${isDark ? 'text-light' : 'text-dark'}`}>
                                             Preciso
                                         </h3>
@@ -304,7 +308,7 @@ function SearchCard({ onQuestionsGenerated, setIsLoading }: SearchCardProps) {
                                     </div>
 
                                     <div className={`feature-card ${isDark ? 'feature-dark' : 'feature-light'}`}>
-                                        <div className={`feature-emoji ${isDark ? 'feature-dark' : 'feature-light'}`}><Lightbulb/></div>
+                                        <div className={`feature-emoji ${isDark ? 'feature-dark' : 'feature-light'}`}><Lightbulb /></div>
                                         <h3 className={`feature-title ${isDark ? 'text-light' : 'text-dark'}`}>
                                             Inteligente
                                         </h3>
@@ -337,17 +341,14 @@ function SearchCard({ onQuestionsGenerated, setIsLoading }: SearchCardProps) {
                                     {questionsData.perguntas.map((_, idx) => (
                                         <div
                                             key={idx}
-                                            className={`progress-dot ${
-                                                idx === currentQuestionIndex ? 'active' : ''
-                                            } ${
-                                                selectedAnswers[idx] ? 'answered' : ''
-                                            } ${
-                                                showResults && selectedAnswers[idx]?.[0] === questionsData.perguntas[idx].gabarito 
-                                                    ? 'correct' 
-                                                    : showResults && selectedAnswers[idx] 
-                                                        ? 'incorrect' 
+                                            className={`progress-dot ${idx === currentQuestionIndex ? 'active' : ''
+                                                } ${selectedAnswers[idx] ? 'answered' : ''
+                                                } ${showResults && selectedAnswers[idx]?.[0] === questionsData.perguntas[idx].gabarito
+                                                    ? 'correct'
+                                                    : showResults && selectedAnswers[idx]
+                                                        ? 'incorrect'
                                                         : ''
-                                            }`}
+                                                }`}
                                             onClick={() => goToQuestion(idx)}
                                         />
                                     ))}
@@ -364,17 +365,16 @@ function SearchCard({ onQuestionsGenerated, setIsLoading }: SearchCardProps) {
                                                 {currentQuestion.alternativas.map((alternative, altIdx) => (
                                                     <div
                                                         key={altIdx}
-                                                        className={`alternative-item ${
-                                                            showResults
-                                                                ? alternative[0] === currentQuestion.gabarito
-                                                                    ? 'correct-answer'
-                                                                    : selectedAnswers[currentQuestionIndex] === alternative
-                                                                        ? 'wrong-answer'
-                                                                        : ''
+                                                        className={`alternative-item ${showResults
+                                                            ? alternative[0] === currentQuestion.gabarito
+                                                                ? 'correct-answer'
                                                                 : selectedAnswers[currentQuestionIndex] === alternative
-                                                                    ? 'selected-answer'
+                                                                    ? 'wrong-answer'
                                                                     : ''
-                                                        } ${isDark ? 'alternative-dark' : 'alternative-light'}`}
+                                                            : selectedAnswers[currentQuestionIndex] === alternative
+                                                                ? 'selected-answer'
+                                                                : ''
+                                                            } ${isDark ? 'alternative-dark' : 'alternative-light'}`}
                                                         onClick={() => handleAnswerSelect(currentQuestionIndex, alternative)}
                                                     >
                                                         {alternative}
@@ -399,11 +399,11 @@ function SearchCard({ onQuestionsGenerated, setIsLoading }: SearchCardProps) {
                                     >
                                         ← Anterior
                                     </button>
-                                    
+
                                     <span className={`question-counter ${isDark ? 'text-light' : 'text-dark'}`}>
                                         {currentQuestionIndex + 1} / {questionsData.perguntas.length}
                                     </span>
-                                    
+
                                     <button
                                         onClick={nextQuestion}
                                         disabled={currentQuestionIndex === questionsData.perguntas.length - 1}
@@ -431,7 +431,7 @@ function SearchCard({ onQuestionsGenerated, setIsLoading }: SearchCardProps) {
                                             Refazer Quiz
                                         </button>
                                     )}
-                                    
+
                                     <button
                                         onClick={resetEverything}
                                         className={`action-button enabled ${isDark ? 'button-dark' : 'button-light'}`}

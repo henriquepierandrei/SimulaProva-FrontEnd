@@ -423,6 +423,7 @@ body {
     max-height: 60px;
     gap: 0.75rem;
     padding: 1rem;
+    min-height: 55px;
     border-radius: 1rem;
     font-weight: 600;
     font-size: 1.125rem;
@@ -433,6 +434,67 @@ body {
     background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
     color: #ffffff;
     box-shadow: 0 8px 25px -8px rgba(0, 123, 255, 0.4);
+}
+
+.rotating-border {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #3b82f6, #8b5cf6, #3b82f6, transparent);
+    border-radius: inherit;
+    animation: spin 1.5s linear infinite;
+    pointer-events: none;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+    padding: 2px;
+}
+
+.ai-orbit {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
+    pointer-events: none;
+}
+
+.ai-particle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
+    animation: ai-orbit 2s linear infinite;
+}
+
+.ai-particle:nth-child(2) {
+    animation-delay: -0.5s;
+    background: linear-gradient(45deg, #10b981, #3b82f6);
+}
+
+.ai-particle:nth-child(3) {
+    animation-delay: -1s;
+    background: linear-gradient(45deg, #f59e0b, #10b981);
+}
+
+.ai-particle:nth-child(4) {
+    animation-delay: -1.5s;
+    background: linear-gradient(45deg, #ef4444, #f59e0b);
+}
+
+@keyframes ai-orbit {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg) translateX(25px) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg) translateX(25px) rotate(-360deg);
+    }
 }
 
 .submit-button:hover:not(.button-disabled) {
@@ -461,9 +523,12 @@ body {
     opacity: 0.5;
     cursor: not-allowed !important;
     transform: scale(1) !important;
-    background: var(--color-text-secondary) !important;
+    background: var(--color-card-bg) !important;
+    color: var(--color-text-secondary);
     box-shadow: none !important;
 }
+
+
 
 .button-icon {
     width: 1.25rem;
