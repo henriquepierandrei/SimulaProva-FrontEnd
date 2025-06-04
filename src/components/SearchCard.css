@@ -1,4 +1,3 @@
-
 /* Aplicar tema dark quando a classe dark estiver presente */
 .main-container.dark {
     --color-bg: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
@@ -13,6 +12,188 @@
     --color-input-bg: rgba(255, 255, 255, 0.05);
     --color-feature-bg: rgba(255, 255, 255, 0.03);
 }
+
+
+
+/* Reset e variáveis */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Tipografia base */
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Paleta azul - tema claro */
+    --color-bg: #ffffff;
+    --color-text: #1a1a1a;
+    --color-primary: #007BFF;
+    --color-primary-light: #339CFF;
+    --color-primary-dark: #0056b3;
+    --color-border: #d0d7de;
+    --color-muted: #f1f3f5;
+    --color-text-secondary: #6b7280;
+    --color-card-bg: rgba(255, 255, 255, 0.95);
+    --color-input-bg: rgba(249, 250, 251, 0.8);
+    --color-feature-bg: rgba(255, 255, 255, 0.7);
+
+    /* Cores das estrelas - tema claro */
+    --stars-layer-1-color: rgba(59, 130, 246, 0.4);
+    --stars-layer-2-color: rgba(99, 102, 241, 0.3);
+    --stars-layer-3-color: rgba(139, 92, 246, 0.35);
+    --stars-opacity: 0.3;
+}
+
+[data-theme="dark"] {
+    /* Paleta azul - tema escuro */
+    --color-bg: #121212;
+    --color-text: #f1f1f1;
+    --color-primary: #339CFF;
+    --color-primary-light: #66BFFF;
+    --color-primary-dark: #0066cc;
+    --color-border: #2b2b2b;
+    --color-muted: #1e1e1e;
+    --color-text-secondary: #9ca3af;
+    --color-card-bg: rgba(18, 18, 18, 0.95);
+    --color-input-bg: rgba(30, 30, 30, 0.8);
+    --color-feature-bg: rgba(43, 43, 43, 0.7);
+
+    /* Cores das estrelas - tema escuro */
+    --stars-layer-1-color: rgba(255, 255, 255, 0.8);
+    --stars-layer-2-color: rgba(139, 92, 246, 0.6);
+    --stars-layer-3-color: rgba(59, 130, 246, 0.5);
+    --stars-opacity: 1;
+}
+
+/* Alternativa usando classes .light e .dark */
+.light {
+    /* Cores das estrelas - tema claro */
+    --stars-layer-1-color: rgba(14, 34, 66, 0.521);
+    --stars-layer-2-color: rgba(38, 39, 104, 0.3);
+    --stars-layer-3-color: rgba(35, 14, 85, 0.39);
+    --stars-opacity: 0.3;
+}
+
+.dark {
+    /* Cores das estrelas - tema escuro */
+    --stars-layer-1-color: rgba(255, 255, 255, 0.8);
+    --stars-layer-2-color: rgba(139, 92, 246, 0.6);
+    --stars-layer-3-color: rgba(59, 130, 246, 0.5);
+    --stars-opacity: 1;
+}
+
+/* Stars Animation */
+.stars-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    opacity: var(--stars-opacity);
+    transition: opacity 0.3s ease;
+}
+
+.stars-layer {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: transparent;
+}
+
+.stars-layer-1 {
+    box-shadow:
+        100px 50px 2px 1px var(--stars-layer-1-color),
+        200px 150px 1px 0px var(--stars-layer-1-color),
+        300px 80px 1px 1px var(--stars-layer-1-color),
+        400px 200px 2px 0px var(--stars-layer-1-color),
+        500px 100px 1px 1px var(--stars-layer-1-color),
+        600px 250px 1px 0px var(--stars-layer-1-color),
+        700px 120px 2px 1px var(--stars-layer-1-color),
+        800px 180px 1px 0px var(--stars-layer-1-color),
+        900px 60px 1px 1px var(--stars-layer-1-color),
+        1000px 220px 2px 0px var(--stars-layer-1-color),
+        1100px 170px 1px 1px var(--stars-layer-1-color),
+        1200px 90px 2px 0px var(--stars-layer-1-color);
+    animation: moveStars1 20s linear infinite;
+}
+
+.stars-layer-2 {
+    box-shadow:
+        150px 80px 1px 0px var(--stars-layer-2-color),
+        250px 120px 2px 1px var(--stars-layer-2-color),
+        350px 200px 1px 1px var(--stars-layer-2-color),
+        450px 60px 1px 0px var(--stars-layer-2-color),
+        550px 180px 2px 1px var(--stars-layer-2-color),
+        650px 90px 1px 0px var(--stars-layer-2-color),
+        750px 240px 1px 1px var(--stars-layer-2-color),
+        850px 140px 2px 0px var(--stars-layer-2-color),
+        950px 30px 1px 1px var(--stars-layer-2-color),
+        1050px 190px 1px 0px var(--stars-layer-2-color),
+        1150px 70px 2px 1px var(--stars-layer-2-color);
+    animation: moveStars2 15s linear infinite;
+}
+
+.stars-layer-3 {
+    box-shadow:
+        80px 100px 1px 0px var(--stars-layer-3-color),
+        180px 40px 2px 1px var(--stars-layer-3-color),
+        280px 160px 1px 1px var(--stars-layer-3-color),
+        380px 90px 1px 0px var(--stars-layer-3-color),
+        480px 210px 2px 1px var(--stars-layer-3-color),
+        580px 70px 1px 0px var(--stars-layer-3-color),
+        680px 180px 1px 1px var(--stars-layer-3-color),
+        780px 110px 2px 0px var(--stars-layer-3-color),
+        880px 50px 1px 1px var(--stars-layer-3-color),
+        980px 200px 1px 0px var(--stars-layer-3-color),
+        1080px 130px 2px 1px var(--stars-layer-3-color);
+    animation: moveStars3 25s linear infinite;
+}
+
+@keyframes moveStars1 {
+    0% {
+        transform: translateY(100vh) translateX(0);
+    }
+
+    100% {
+        transform: translateY(-100px) translateX(-50px);
+    }
+}
+
+@keyframes moveStars2 {
+    0% {
+        transform: translateY(100vh) translateX(50px);
+    }
+
+    100% {
+        transform: translateY(-100px) translateX(0);
+    }
+}
+
+@keyframes moveStars3 {
+    0% {
+        transform: translateY(100vh) translateX(-30px);
+    }
+
+    100% {
+        transform: translateY(-100px) translateX(30px);
+    }
+}
+
+
+
 
 /* Container Principal */
 .main-container {
@@ -212,10 +393,20 @@
     font-size: 1.125rem;
     transition: all 0.3s ease;
     color: var(--color-text);
+    cursor: pointer;
+}
+
+.question-input option {
+    cursor: pointer;
+    background-color: var(--color-card-bg);
 }
 
 .question-input::placeholder {
     color: var(--color-text-secondary);
+}
+
+.question-input::-webkit-scrollbar {
+    background-color: red;
 }
 
 .input-text-light,
@@ -322,6 +513,7 @@
     -webkit-backdrop-filter: blur(8px);
     transform: scale(1);
     background: var(--color-feature-bg);
+    cursor: pointer;
 }
 
 .feature-card:hover {
@@ -330,6 +522,7 @@
 }
 
 .feature-emoji {
+    color: var(--color-primary-dark);
     font-size: 2rem;
     margin-bottom: 0.5rem;
 }
@@ -409,4 +602,390 @@
         font-size: 1rem;
         padding: 0.875rem;
     }
+}
+
+/* Questions Card */
+.question-container {
+    max-width: 42rem;
+    width: 90%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--color-muted);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.quiz-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--color-text);
+    transition: color 0.3s ease;
+}
+
+.quiz-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+}
+
+.question-count {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.score-display {
+    font-size: 0.875rem;
+    color: var(--color-primary);
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+/* Indicadores de progresso */
+.progress-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.progress-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--color-border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.progress-dot:hover {
+    transform: scale(1.2);
+    background-color: var(--color-primary-light);
+}
+
+.progress-dot.active {
+    background-color: var(--color-primary);
+    transform: scale(1.3);
+}
+
+.progress-dot.answered {
+    background-color: var(--color-primary-dark);
+}
+
+.progress-dot.correct {
+    background-color: #10b981;
+}
+
+.progress-dot.incorrect {
+    background-color: #ef4444;
+}
+
+/* Slider da questão */
+.question-slider {
+    min-height: 400px;
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.question-card {
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: var(--color-card-bg);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.main-container.dark .question-card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.question-card.active {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.question-title {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+    color: var(--color-text);
+    line-height: 1.6;
+    transition: color 0.3s ease;
+}
+
+.alternatives-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.alternative-item {
+    padding: 0.875rem;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    border: 2px solid var(--color-border);
+    background: var(--color-input-bg);
+    backdrop-filter: blur(5px);
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.alternative-item:hover {
+    background-color: var(--color-muted);
+    border-color: var(--color-primary-light);
+    transform: translateY(-1px);
+}
+
+.alternative-item.selected-answer {
+    background-color: var(--color-primary-light);
+    border-color: var(--color-primary);
+    color: var(--color-bg);
+}
+
+.main-container.dark .alternative-item.selected-answer {
+    background-color: rgba(51, 156, 255, 0.2);
+    border-color: var(--color-primary);
+    color: var(--color-primary-light);
+}
+
+.alternative-item.correct-answer {
+    background-color: rgba(16, 185, 129, 0.2);
+    border-color: #10b981;
+    color: #047857;
+}
+
+.main-container.dark .alternative-item.correct-answer {
+    background-color: rgba(16, 185, 129, 0.15);
+    border-color: #10b981;
+    color: #34d399;
+}
+
+.alternative-item.wrong-answer {
+    background-color: rgba(239, 68, 68, 0.2);
+    border-color: #ef4444;
+    color: #dc2626;
+}
+
+.main-container.dark .alternative-item.wrong-answer {
+    background-color: rgba(239, 68, 68, 0.15);
+    border-color: #ef4444;
+    color: #f87171;
+}
+
+.explanation-text {
+    margin-top: 1rem;
+    padding: 1rem;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    background: var(--color-muted);
+    border-radius: 0.375rem;
+    border-left: 4px solid var(--color-primary);
+    transition: all 0.3s ease;
+}
+
+/* Controles de navegação */
+.navigation-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 0 1rem;
+}
+
+.nav-button {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.375rem;
+    background: var(--color-card-bg);
+    color: var(--color-text);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(5px);
+}
+
+.nav-button:hover:not(:disabled) {
+    background: var(--color-muted);
+    border-color: var(--color-primary-light);
+    transform: translateY(-1px);
+}
+
+.nav-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--color-muted);
+}
+
+.question-counter {
+    font-weight: 600;
+    color: var(--color-text);
+    font-size: 0.875rem;
+    transition: color 0.3s ease;
+}
+
+/* Ações do quiz */
+.quiz-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.action-button {
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+    backdrop-filter: blur(10px);
+}
+
+.action-button.enabled {
+    background-color: var(--color-primary);
+    color: white;
+    border: 1px solid var(--color-primary);
+}
+
+.action-button.enabled:hover {
+    background-color: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+    transform: translateY(-1px);
+}
+
+.action-button.disabled {
+    background-color: var(--color-muted);
+    color: var(--color-text-secondary);
+    cursor: not-allowed;
+    border: 1px solid var(--color-border);
+}
+
+/* Estados especiais */
+.loading-state,
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    text-align: center;
+    color: var(--color-text-secondary);
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid var(--color-border);
+    border-top: 3px solid var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Efeitos especiais para tema escuro */
+.main-container.dark .quiz-header {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.main-container.dark .question-card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+.main-container.dark .alternative-item {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.main-container.dark .alternative-item:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.main-container.dark .nav-button {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.main-container.dark .action-button.enabled {
+    box-shadow: 0 2px 4px rgba(51, 156, 255, 0.3);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .quiz-header {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+
+    .quiz-info {
+        align-items: center;
+    }
+
+    .navigation-controls {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .nav-button {
+        width: 120px;
+    }
+
+    .progress-indicators {
+        gap: 0.375rem;
+    }
+
+    .progress-dot {
+        width: 10px;
+        height: 10px;
+    }
+
+    .quiz-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .action-button {
+        width: 100%;
+        max-width: 250px;
+    }
+}
+
+/* Animações suaves para mudança de tema */
+* {
+    transition: background-color 0.3s ease,
+        border-color 0.3s ease,
+        color 0.3s ease,
+        box-shadow 0.3s ease;
 }
