@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Heart, X, Coffee, Gift, Sparkles } from 'lucide-react';
+import { Heart, X, Coffee, Gift, Sparkles, Smartphone, Camera } from 'lucide-react';
 import './ButtonPay.css';
+import { AiFillRocket } from 'react-icons/ai';
 
 type ButtonPayProps = {
   isDark: boolean;
@@ -75,15 +76,15 @@ function ButtonPay({ isDark }: ButtonPayProps) {
                 
                 <div className="payment-steps">
                   <div className="payment-step">
-                    <span className="payment-step__emoji">📱</span>
+                    <span className="payment-step__emoji"><Smartphone /></span>
                     <span className="payment-step__text">Abra seu app do banco</span>
                   </div>
                   <div className="payment-step">
-                    <span className="payment-step__emoji">📷</span>
+                    <span className="payment-step__emoji"><Camera /></span>
                     <span className="payment-step__text">Escaneie o QR Code</span>
                   </div>
                   <div className="payment-step">
-                    <span className="payment-step__emoji">💝</span>
+                    <span className="payment-step__emoji"><Heart /></span>
                     <span className="payment-step__text">Confirme a contribuição</span>
                   </div>
                 </div>
