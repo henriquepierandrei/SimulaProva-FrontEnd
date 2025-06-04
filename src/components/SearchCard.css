@@ -633,7 +633,7 @@ body {
 /* Responsividade */
 @media (max-width: 768px) {
     .main-container {
-        padding: 0.5rem;
+        padding: 0.5rem;padding-bottom: 10rem;
     }
 
     .card-header,

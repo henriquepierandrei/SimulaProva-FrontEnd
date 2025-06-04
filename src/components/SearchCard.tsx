@@ -4,6 +4,7 @@ import { FiTarget } from "react-icons/fi";
 import { Send, Moon, Sun, Sparkles, MessageCircle, Lightbulb } from 'lucide-react';
 import { AiFillRocket } from 'react-icons/ai';
 import './SearchCard.css'; // Certifique-se de ter o CSS adequado para estilização
+import ButtonPay from './ButtonPay';
 
 // Interfaces
 interface Question {
@@ -448,7 +449,10 @@ function SearchCard({ onQuestionsGenerated, setIsLoading }: SearchCardProps) {
                     <div className="decoration-top" />
                     <div className="decoration-bottom" />
                 </div>
+                <br /><ButtonPay isDark={isDark} />
             </div>
+        
+            
         </div>
     );
 }
