@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Heart, X, Coffee, Gift, Sparkles, Smartphone, Camera } from 'lucide-react';
 import './ButtonPay.css';
-import { AiFillRocket } from 'react-icons/ai';
 
 type ButtonPayProps = {
   isDark: boolean;
@@ -64,16 +63,6 @@ function ButtonPay({ isDark }: ButtonPayProps) {
               </div>
               
               <div className="payment-info">
-                <div className="payment-methods">
-                  <div className="payment-method">
-                    <Gift className="payment-method__icon" />
-                    <span className="payment-method__text">PIX</span>
-                  </div>
-                  <div className="payment-value">
-                    <span className="payment-value__text">Qualquer valor</span>
-                  </div>
-                </div>
-                
                 <div className="payment-steps">
                   <div className="payment-step">
                     <span className="payment-step__emoji"><Smartphone /></span>

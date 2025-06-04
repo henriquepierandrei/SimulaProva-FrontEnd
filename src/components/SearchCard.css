@@ -1,6 +1,6 @@
 /* Aplicar tema dark quando a classe dark estiver presente */
 .main-container.dark {
-    --color-bg: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    --color-bg: linear-gradient(135deg, #0a0a0a 0%, #1c1c22 50%, #21242b 100%);
     --color-card-bg: rgba(30, 30, 46, 0.95);
     --color-border: rgba(255, 255, 255, 0.1);
     --color-text: #e5e7eb;
@@ -49,9 +49,9 @@ body {
     --color-feature-bg: rgba(255, 255, 255, 0.7);
 
     /* Cores das estrelas - tema claro */
-    --stars-layer-1-color: rgba(59, 130, 246, 0.4);
-    --stars-layer-2-color: rgba(99, 102, 241, 0.3);
-    --stars-layer-3-color: rgba(139, 92, 246, 0.35);
+    --stars-layer-1-color: rgb(21, 47, 88);
+    --stars-layer-2-color: rgb(28, 36, 48);
+    --stars-layer-3-color: rgb(35, 38, 43);
     --stars-opacity: 0.3;
 }
 
@@ -358,7 +358,11 @@ body {
     border: 2px solid var(--color-border);
     transition: all 0.3s ease;
     background: var(--color-input-bg);
+}input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    display: none;
 }
+
 
 .input-container:focus-within {
     border-color: var(--color-primary);

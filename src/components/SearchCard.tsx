@@ -5,6 +5,7 @@ import { Send, Moon, Sun, Sparkles, MessageCircle, Lightbulb } from 'lucide-reac
 import { AiFillRocket } from 'react-icons/ai';
 import './SearchCard.css'; // Certifique-se de ter o CSS adequado para estilização
 import ButtonPay from './ButtonPay';
+import shineSound from '../assets/sounds/shine-8-268901.mp3'
 
 // Interfaces
 interface Question {
@@ -94,12 +95,15 @@ function SearchCard({ onQuestionsGenerated, setIsLoading }: SearchCardProps) {
                 setSelectedAnswers({});
                 setShowResults(false);
                 setCurrentQuestionIndex(0);
+                const audio = new Audio(shineSound)
+                audio.play();
             }
 
             // Chama a função do componente pai se existir
             if (onQuestionsGenerated) {
                 onQuestionsGenerated(response.data);
             }
+
 
         } catch (error) {
             console.error('Erro ao gerar perguntas:', error);
