@@ -24,7 +24,7 @@ interface SearchCardProps {
     setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const baseURL = 'http://localhost:8080'; // Substitua pela sua URL real
+const baseURL = 'https://simulaprova-latest.onrender.com'; // Substitua pela sua URL real
 
 function SearchCard({ onQuestionsGenerated, setIsLoading }: SearchCardProps) {
     const [isDark, setIsDark] = useState(false);
