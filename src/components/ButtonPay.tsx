@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Heart, X, Coffee, Gift, Sparkles, Smartphone, Camera } from 'lucide-react';
+import { useState } from 'react';
+import { Heart, X, Coffee, Sparkles, Smartphone, Camera } from 'lucide-react';
 import './ButtonPay.css';
 
 type ButtonPayProps = {
