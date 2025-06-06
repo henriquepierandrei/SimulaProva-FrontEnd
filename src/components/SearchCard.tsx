@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { FiTarget } from "react-icons/fi";
-import { Send, Moon, Sun, Sparkles, MessageCircle, Lightbulb } from 'lucide-react';
+import { Send, Moon, Sun, Sparkles, MessageCircle, Lightbulb, Download } from 'lucide-react';
 import { AiFillRocket } from 'react-icons/ai';
 import './SearchCard.css'; // Certifique-se de ter o CSS adequado para estilização
 import ButtonPay from './ButtonPay';
@@ -24,7 +24,7 @@ interface SearchCardProps {
     setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const baseURL = 'https://simulaprova-latest.onrender.com'; // Substitua pela sua URL real
+const baseURL = 'https://simulaprova-latest.onrender.com';
 
 function SearchCard({ onQuestionsGenerated, setIsLoading }: SearchCardProps) {
     const [isDark, setIsDark] = useState(false);
@@ -35,9 +35,14 @@ function SearchCard({ onQuestionsGenerated, setIsLoading }: SearchCardProps) {
 
     // Estados para as questões
     const [questionsData, setQuestionsData] = useState<QuestionsData | null>(null);
+    const [originalApiResponse, setOriginalApiResponse] = useState<any>(null); // Para armazenar a resposta original da API
     const [selectedAnswers, setSelectedAnswers] = useState<{ [key: number]: string }>({});
     const [showResults, setShowResults] = useState(false);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+
+    // Estados para PDF
+    const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+    const [includeGabarito, setIncludeGabarito] = useState(true);
 
     const toggleTheme = () => {
         setIsDark(!isDark);
@@ -86,6 +91,9 @@ function SearchCard({ onQuestionsGenerated, setIsLoading }: SearchCardProps) {
 
             const response = await apiInstance.post('', request);
 
+            // Armazenar a resposta original da API para usar no PDF
+            setOriginalApiResponse(response.data);
+
             // Processar dados das questões
             const processedData = processQuestionsData(response.data);
 
@@ -104,12 +112,50 @@ function SearchCard({ onQuestionsGenerated, setIsLoading }: SearchCardProps) {
                 onQuestionsGenerated(response.data);
             }
 
-
         } catch (error) {
             console.error('Erro ao gerar perguntas:', error);
         } finally {
             setIsLocalLoading(false);
             if (setIsLoading) setIsLoading(false);
+        }
+    };
+
+    // Função para gerar PDF
+    const handleGeneratePdf = async () => {
+        if (!originalApiResponse) {
+            console.error('Dados da API não disponíveis para gerar PDF');
+            return;
+        }
+
+        setIsGeneratingPdf(true);
+
+        try {
+            const response = await axios({
+                method: 'post',
+                url: `${baseURL}/pdf/generate?addGabarito=${includeGabarito}`,
+                data: originalApiResponse, // Enviando todo o response da API no corpo da requisição
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                responseType: 'blob' // Importante para receber o PDF como blob
+            });
+
+            // Criar blob e fazer download
+            const blob = new Blob([response.data], { type: 'application/pdf' });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `questoes_${tema.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+
+        } catch (error) {
+            console.error('Erro ao gerar PDF:', error);
+            alert('Erro ao gerar PDF. Tente novamente.');
+        } finally {
+            setIsGeneratingPdf(false);
         }
     };
 
@@ -168,6 +214,7 @@ function SearchCard({ onQuestionsGenerated, setIsLoading }: SearchCardProps) {
 
     const resetEverything = () => {
         setQuestionsData(null);
+        setOriginalApiResponse(null);
         setSelectedAnswers({});
         setShowResults(false);
         setCurrentQuestionIndex(0);
@@ -339,6 +386,39 @@ function SearchCard({ onQuestionsGenerated, setIsLoading }: SearchCardProps) {
                                             </span>
                                         )}
                                     </div>
+                                </div>
+
+                                {/* Área de controles do PDF */}
+                                <div className={`pdf-controls ${isDark ? 'pdf-controls-dark' : 'pdf-controls-light'}`}>
+                                    <div className="pdf-options">
+                                        <label className={`checkbox-container ${isDark ? 'text-light' : 'text-dark'}`}>
+                                            <input
+                                                type="checkbox"
+                                                checked={includeGabarito}
+                                                onChange={(e) => setIncludeGabarito(e.target.checked)}
+                                                className="pdf-checkbox"
+                                            />
+                                            <span className="custom-checkmark"></span>
+                                            Incluir gabarito no PDF
+                                        </label>
+                                    </div>
+                                    <button
+                                        onClick={handleGeneratePdf}
+                                        disabled={isGeneratingPdf}
+                                        className={`pdf-button ${isDark ? 'button-dark' : 'button-light'} ${isGeneratingPdf ? 'button-disabled' : ''}`}
+                                    >
+                                        {isGeneratingPdf ? (
+                                            <>
+                                                <div className="loading-spinner"></div>
+                                                Gerando PDF...
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Download className="button-icon" />
+                                                Baixar PDF
+                                            </>
+                                        )}
+                                    </button>
                                 </div>
 
                                 {/* Indicadores de progresso */}

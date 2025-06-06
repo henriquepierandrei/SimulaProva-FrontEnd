@@ -13,7 +13,99 @@
     --color-feature-bg: rgba(255, 255, 255, 0.03);
 }
 
+/* Controles do PDF */
+.pdf-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 12px;
+    border: 1px solid;
+}
 
+.pdf-controls-light {
+    background: rgba(248, 250, 252, 0.8);
+    border-color: rgba(148, 163, 184, 0.2);
+}
+
+.pdf-controls-dark {
+    background: rgba(30, 41, 59, 0.8);
+    border-color: rgba(71, 85, 105, 0.3);
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    position: relative;
+    user-select: none;
+}
+
+/* Esconde o checkbox padrão */
+.pdf-checkbox {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Caixinha personalizada */
+.custom-checkmark {
+    width: 18px;
+    height: 18px;
+    background-color: #fff;
+    border: 2px solid #999;
+    border-radius: 4px;
+    margin-right: 10px;
+    transition: background-color 0.2s, border-color 0.2s;
+    display: inline-block;
+    position: relative;
+}
+
+/* Sinal de check quando marcado */
+.pdf-checkbox:checked + .custom-checkmark::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid #000;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Ajuste de tema escuro */
+.pdf-controls-dark .custom-checkmark {
+    background-color: #333;
+    border-color: #aaa;
+}
+
+.pdf-controls-dark .pdf-checkbox:checked + .custom-checkmark::after {
+    border-color: #fff;
+}
+
+
+.pdf-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+}.pdf-button:hover {
+    scale: 1.03;
+    background-color: var(--color-primary-light);
+    color: #ffffff;
+    border-color: var(--color-primary-light);
+}
 
 /* Reset e variáveis */
 html,
@@ -358,7 +450,9 @@ body {
     border: 2px solid var(--color-border);
     transition: all 0.3s ease;
     background: var(--color-input-bg);
-}input[type="number"]::-webkit-inner-spin-button,
+}
+
+input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     display: none;
 }
@@ -637,7 +731,8 @@ input[type="number"]::-webkit-outer-spin-button {
 /* Responsividade */
 @media (max-width: 768px) {
     .main-container {
-        padding: 0.5rem;padding-bottom: 10rem;
+        padding: 0.5rem;
+        padding-bottom: 10rem;
     }
 
     .card-header,
